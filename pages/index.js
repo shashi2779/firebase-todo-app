@@ -30,7 +30,7 @@ const LoginForm = () => {
                         />
                     </div>
 
-                    {/* // password input */}
+                
                     <div className="mt-10 pl-1 flex flex-col">
                         <label>Password</label>
                         <input
