@@ -21,7 +21,6 @@ const LoginForm = () => {
                         </span>
                     </div>
 
-                    {/* // email input */}
                     <div className="mt-10 pl-1 flex flex-col">
                         <label>Email</label>
                         <input
@@ -30,7 +29,6 @@ const LoginForm = () => {
                         />
                     </div>
 
-                    {/* // password input */}
                     <div className="mt-10 pl-1 flex flex-col">
                         <label>Password</label>
                         <input
