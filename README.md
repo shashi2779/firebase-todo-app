@@ -163,6 +163,7 @@ const signUpHandler = async () => {
 
 ```
 ##### register with google
+
 - <h1>google</h1> wale "div" par onClick se signInWithGoogle method lagaye taki google se register krr paye
 - eske liye ek additional provider hai => GoogleAuthProvider
      - import {  GoogleAuthProvider , signInWithPopup} from "firebase/auth";
