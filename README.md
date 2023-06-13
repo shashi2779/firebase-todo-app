@@ -56,6 +56,7 @@ const app = initializeApp(firebaseConfig);
 
 // yha do chije create karegen 1- authentication , 2- db => database
 // app pass krr diye
+// Initialize Firebase Authentication, database and get a reference to the service
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 
@@ -100,7 +101,7 @@ createUserWithEmailAndPassword(auth, email, password)
 ```
 - register
 ```js
-// "getAuth" method firebase se mil jayega "auth" me
+// "getAuth" method firebase.js file se mil jayega "auth" me
 //  const auth = getAuth(app)
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -108,7 +109,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const signUpHandler = async () => {
         // username,email,password teeno me se koi bhi field , field nhi hai toh kuch bhi nhi hona chahiye , 
         // hamara aage ka code execute hi nhi hoga
-
+        // username,email,password teeno me se koi bhi field write nhi kiye toh aage ka code execute nhi hona chahiye
         if (!username || !email || !password) return;
         
         try {
@@ -149,8 +150,9 @@ const signUpHandler = async () => {
              const user = await createUserWithEmailAndPassword(auth, email, password)
             
              // jaise hi hamara user register ho jayega vaise hi auth ke ander hame wo wala user mil jayega as current user
+             // eske ander jo bhi information update karni hao wo de degen eg. email,pass,name
              await updateProfile(auth.currentUser,{
-                // eske ander jo bhi information update karni hao wo de degen
+                // hme user ka nam update karna hai
                 displayName:username
              })
              console.log(user)
@@ -194,6 +196,7 @@ import { auth } from "../firebase/firebase";
 
 // "getAuth" method firebase se mil jayega "auth" me
 // updateProfile => se hamm kuchh bhi update kar sakte hai eg. email,password,username
+// register me mere ko user ka nam null mila toh => user ka name update kiya wtih "updateProfile" se 
 // register me mere ko user ka nam null mila toh => user ka name update kiya wtih "updateProfile" se 
 import { createUserWithEmailAndPassword , updateProfile , GoogleAuthProvider , signInWithPopup} from "firebase/auth";
 
@@ -464,3 +467,6 @@ const LoginForm = () => {
 export default LoginForm;
 
 ```
+
+### authorised user ka yani jo user loggedIn hai uska data throughout the application avariable karana taki usko hamm easily kisi bhi components me use kar sake - with context API
+

@@ -3,12 +3,13 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 // authentication k liye register me "auth" import kiaa
-// "getAuth" method firebase se mil jayega "auth" me
+// "getAuth" method firebase.js file se mil jayega "auth" me
 import { auth } from "../firebase/firebase";
 
 
 // updateProfile => se hamm kuchh bhi update kar sakte hai eg. email,password,username
 // register me mere ko user ka nam null mila toh => user ka name update kiya wtih "updateProfile" se 
+// GoogleAuthProvider , signInWithPopup method for login/register with google
 import { createUserWithEmailAndPassword , updateProfile , GoogleAuthProvider , signInWithPopup} from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
@@ -23,9 +24,10 @@ const RegisterForm = () => {
     const [password, setPassword] = useState(null)
 
     const signUpHandler = async () => {
+         
         // username,email,password teeno me se koi bhi field , field nhi hai toh kuch bhi nhi hona chahiye , 
         // hamara aage ka code execute hi nhi hoga
-
+        // username,email,password teeno me se koi bhi field write nhi kiye toh aage ka code execute nhi hona chahiye
         if (!username || !email || !password) return;
         
         try {
@@ -33,8 +35,9 @@ const RegisterForm = () => {
              const user = await createUserWithEmailAndPassword(auth, email, password)
             
              // jaise hi hamara user register ho jayega vaise hi auth ke ander hame wo wala user mil jayega as current user
+            // eske ander jo bhi information update karni hao wo de degen eg. email,pass,name
              await updateProfile(auth.currentUser,{
-                // eske ander jo bhi information update karni hao wo de degen
+                // hme user ka nam update karna hai
                 displayName:username
              })
              console.log(user)

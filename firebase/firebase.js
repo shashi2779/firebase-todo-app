@@ -8,6 +8,8 @@ import {getAuth} from 'firebase/auth'
 // databse handle karne k liye firebase me "getFirestore" method milta hai
 import {getFirestore} from 'firebase/firestore'
 
+
+// credentials
 const firebaseConfig = {
   apiKey: "AIzaSyDZSZDoQ2zCjLFfGwqEsBxnHLvMSC6fa6A",
   authDomain: "fir-todo-app-2d1af.firebaseapp.com",
@@ -22,5 +24,6 @@ const app = initializeApp(firebaseConfig);
 
 // yha do chije create karegen 1- authentication , 2- db => database
 // app pass krr diye
+// Initialize Firebase Authentication, database and get a reference to the service
 export const auth = getAuth(app)
 export const db = getFirestore(app)
