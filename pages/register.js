@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React,{ useState ,useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 // authentication k liye register me "auth" import kiaa
@@ -15,6 +14,17 @@ import { createUserWithEmailAndPassword , updateProfile , GoogleAuthProvider , s
 const provider = new GoogleAuthProvider();
 
 
+// eske ander sari state/value aa rhi context api ke global store se 
+import { useAuth } from "@/firebase/authContext";
+
+// router => useRouter from next , eska instance bhi create karegen => const router = useRouter()
+import { useRouter } from "next/router";
+
+import Loader from "@/components/Loader";
+import Link from "next/link";
+
+
+
 
 const RegisterForm = () => {
 
@@ -22,6 +32,20 @@ const RegisterForm = () => {
     const [username, setUserName] = useState(null)
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
+    // value extract kiye context api store se 
+    const {authUser, isLoading , setAuthUser} = useAuth()
+
+    // instance create kiaa useRouter ka 
+    const router = useRouter()
+
+     //enn dono me se kisi ki bhi state change hoti hai toh useEffect chalega
+     useEffect(()=>{
+        //isLoading true nhi hai , authUser null nhi hai toh ess vase me hamara user "login" hai
+        if(!isLoading && authUser){
+           router.push("/")
+        }
+   },[authUser,isLoading])
+
 
     const signUpHandler = async () => {
          
@@ -40,7 +64,15 @@ const RegisterForm = () => {
                 // hme user ka nam update karna hai
                 displayName:username
              })
-             console.log(user)
+             //user profile update huyi toh set kiaa
+             setAuthUser({
+                uid: user.uid,
+                email : user.email,
+                // username : username
+                username
+
+             })
+            //  console.log(user)
 
         } catch (error) {
             console.error("an error occured",error)
@@ -57,16 +89,16 @@ const RegisterForm = () => {
                 }
     } 
 
-    return (
+    return isLoading || (!isLoading && authUser) ? (<Loader/>):(
         <main className="flex lg:h-[100vh]">
             <div className="w-full lg:w-[60%] p-8 md:p-14 flex items-center justify-center lg:justify-start">
                 <div className="p-8 w-[600px]">
                     <h1 className="text-6xl font-semibold">Sign Up</h1>
                     <p className="mt-6 ml-1">
                         Already have an account ?{" "}
-                        <span className="underline hover:text-blue-400 cursor-pointer">
+                        <link href="/login" className="underline hover:text-blue-400 cursor-pointer">
                             Login
-                        </span>
+                        </link>
                     </p>
 
                     <div className="bg-black/[0.05] text-white w-full py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90 flex justify-center items-center gap-4 cursor-pointer group"
