@@ -468,5 +468,5 @@ export default LoginForm;
 
 ```
 
-### authorised user ka yani jo user loggedIn hai uska data throughout the application avariable karana taki usko hamm easily kisi bhi components me use kar sake - with context API
+### Authorised user ka yani jo user loggedIn hai uska data throughout the application avariable karana taki usko hamm easily kisi bhi components me use kar sake - with context API
 
